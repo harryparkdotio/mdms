@@ -5,13 +5,6 @@ template: index
 ---
 #home page
 
-everything works!
+## markdown works!
 
-##hello
-
-woot woot!
-
-YO!
-
-#hi
-#yooo
+#mdms - Built by Harry Park 2016. http://harrypark.io, harry@harrypark.io

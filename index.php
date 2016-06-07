@@ -1,12 +1,12 @@
 <?php
 
 // Turns on error displaying
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
-// home path of URL
-$homepath = '/cms/flatfile/';
+// home path of URL (subfolder of installation; leave as slash for root unstallations)
+$homepath = '/';
 // gets current URL
 $url = $_SERVER['REQUEST_URI'];
 // gets current url, removes the homepath for getting correct .md file below
