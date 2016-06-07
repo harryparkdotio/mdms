@@ -1,7 +1,5 @@
 # mdms
-mdms - Markdown Management System; a simple markdown based flat file content management system.
-
-mdms is a management system based on the popular markdown file type.
+mdms - Markdown Management System; a simple markdown (the most awesome text file you will hear about. period.) based flat file (no databases here!) content management system.
 
 ## User friendly URL's
 mdms automagically makes all url's friendly for the user.
