@@ -20,3 +20,7 @@ Every markdown file has it's own header, whether its a title, a description, or 
 All needed plugins for mdms to work are included and don't require a seperate composer install.
 ### Reason
 The reason I opted not to use composer was because the fact that I actually was testing this on a shared hosting server, and if you've ever worked wth one, you'll know how limiting they can be. You really can't install composer easily, and I wanted this project to be as user friendly as possible, therefore, no composer. Everything you need is already linked.
+
+
+### examples of MDMS being used
+http://jiggleymedia.com
