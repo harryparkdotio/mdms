@@ -25,4 +25,4 @@ The reason I opted not to use composer was because the fact that I actually was 
 ### Examples of MDMS being used
 http://jiggleymedia.com
 
-## Demo coming soon!
+## Demo & Admin Panel coming soon!
