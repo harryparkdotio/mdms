@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-3">
+		<h1>Pages</h1>
+	</div>
+	<div class="col-md-3 col-md-offset-6 text-right">
+		<a href="pages/new" class="btn btn-primary" role="button">New Page</a>
+	</div>
+</div>
+
+<table class="table table-striped table-hover">
+
+	<thead>
+		<th>Page</th>
+		<th>Path</th>
+		<th>Title</th>
+		<th>Child Pages</th>
+		<th>Last Edited</th>
+		<th></th>
+	</thead>
+
+	<tbody>
+		{% for page in pages|sort %}
+			<tr>
+				<td>{{ page.page }}</td>
+				<td>{{ page.path }}</td>
+				<td>{{ page.title }}</td>
+				<td>
+					{% for child in page.childpages %}
+						{{ child }}
+					{% endfor %}
+				</td>
+				<td>{{ page.lastedit }}
+				{% if date(page.fileedited) > date('-3hours') %}
+					<span class="label label-success">New</span>
+				{% endif %}
+				</td>
+				<td class="text-right">{{ page.functions | raw }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+
+{% endblock %}

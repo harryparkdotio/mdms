@@ -1,0 +1,24 @@
+<form method="post" action="index.php" name="registerform">
+	<!-- Username -->
+	<div class="form-group">
+		<input type="text" id="login_input_username" class="form-control" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required>
+		<label for="login_input_username">Username</label>
+	</div>
+	<!-- Email -->
+	<div class="form-group">
+		<input type="email" id="login_input_email" class="form-control" name="user_email" required>
+		<label for="login_input_email">Email</label>
+	</div>
+	<!-- Password -->
+	<div class="form-group">
+		<input type="password" id="login_input_password_new" class="form-control" name="user_password_new" pattern=".{6,}" required autocomplete="off" >
+		<label for="login_input_password_new">Password</label>
+	</div>
+	<!-- Password Repeat -->
+	<div class="form-group">
+		<input type="password" id="login_input_password_repeat" class="form-control" name="user_password_repeat" pattern=".{6,}" required autocomplete="off">
+		<label for="login_input_password_repeat">Password Repeat</label>
+	</div>
+	<!-- Submit -->
+	<input type="submit" value="Register" name="register" class="btn">
+</form>

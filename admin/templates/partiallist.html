@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+
+{% block title %}Partials{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-3">
+		<h1>Partials</h1>
+	</div>
+	<div class="col-md-3 col-md-offset-6 text-right">
+		<a href="?newelement" class="btn btn-primary" role="button">New Element</a>
+	</div>
+</div>
+
+<table class="table table-striped table-hover">
+
+	<thead>
+		<th>Partial</th>
+		<th></th>
+	</thead>
+
+	<tbody>
+		{% for partial in partials|sort %}
+			<tr>
+				<td>{{ partial.partial }}</td>
+				<td class="text-right">{{ partial.functions | raw }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+
+{% endblock %}

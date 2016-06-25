@@ -1,10 +1,13 @@
 ---
-title: homepage
-description: home
+title: Home
+description: Homepage
 template: index
+author: Harry Park
+childpages: about
 ---
-#home page
+Welcome to the homepage of MDMS.
 
-## markdown works!
+This page also pull child pages linked in the template file, and specified in the Yaml header of this orginal .md file.
 
-#mdms - Built by Harry Park 2016. http://harrypark.io, harry@harrypark.io
+# hi
+# hello

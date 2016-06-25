@@ -13,6 +13,7 @@ class FrontMatter
      * @param array $data metadata & content
      */
     public $data;
+    public $values = array();
 
     /**
      * Constructor method, checks a file and then puts the contents into custom strings for usage
@@ -124,6 +125,7 @@ class FrontMatter
 
                     # Store Content in Final array
                     $final[$key] = $val;
+                    array_push($this->values, $key);
                 }
             }
         }
