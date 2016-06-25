@@ -35,7 +35,8 @@ Note: this installation type is still mostly untested, for this reason, you migh
 create a new databse by the name of 'login'.
 run the SQL script below to create a new table:
 
-```CREATE TABLE IF NOT EXISTS `users` (
+```
+CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',
   `access_level` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'defines user access level for associated rights',
   `user_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s name, unique',
