@@ -1,130 +1,72 @@
 <?php
 
+require_once('functions.php');
+
 class Login
 {
-	/**
-	 * @var object The database connection
-	 */
-	private $db_connection = null;
-	/**
-	 * @var array Collection of error messages
-	 */
-	public $errors = array();
-	/**
-	 * @var array Collection of success / neutral messages
-	 */
-	public $messages = array();
-
-	/**
-	 * the function "__construct()" automatically starts whenever an object of this class is created,
-	 * you know, when you do "$login = new Login();"
-	 */
 	public function __construct()
 	{
-		// create/read session, absolutely necessary
-		session_start();
-
-		// check the possible login actions:
-		// if user tried to log out (happen when user clicks logout button)
-		if (isset($_GET["logout"])) {
-			$this->doLogout();
-		}
-		// login via post data (if user just submitted a login form)
-		elseif (isset($_POST["login"])) {
-			$this->dologinWithPostData();
+		$functions = new Functions();
+		if (isset($_POST['login'])) {
+			$this->login();
+		} elseif ($functions->url(0) == 'logout') {
+			$this->logout();
+		} elseif (isset($_POST['newuser'])) {
+			$this->register();
 		}
 	}
 
-	/**
-	 * log in with post data
-	 */
-	private function dologinWithPostData()
+	public function login()
 	{
-		// check login form contents
-		if (empty($_POST['user_name'])) {
-			$this->errors[] = "Username field was empty.";
-		} elseif (empty($_POST['user_password'])) {
-			$this->errors[] = "Password field was empty.";
-		} elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
-
-			// create a database connection, using the constants from config/db.php (which we loaded in index.php)
-			$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-			// change character set to utf8 and check it
-			if (!$this->db_connection->set_charset("utf8")) {
-				$this->errors[] = $this->db_connection->error;
-			}
-
-			// if no connection errors (= working database connection)
-			if (!$this->db_connection->connect_errno) {
-
-				// escape the POST stuff
-				$user_name = $this->db_connection->real_escape_string($_POST['user_name']);
-
-				// database query, getting all the info of the selected user (allows login via email address in the
-				// username field)
-				$sql = "SELECT user_name, access_level, user_email, user_password_hash FROM users WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
-				$result_of_login_check = $this->db_connection->query($sql);
-
-				// if this user exists
-				if ($result_of_login_check->num_rows == 1) {
-
-					// get result row (as an object)
-					$result_row = $result_of_login_check->fetch_object();
-
-					// using PHP 5.5's password_verify() function to check if the provided password fits
-					// the hash of that user's password
-					if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
-
-						// write user data into PHP SESSION (a file on your server)
-						$_SESSION['user_name'] = $result_row->user_name;
-						$_SESSION['user_email'] = $result_row->user_email;
-						$_SESSION['access_level'] = $result_row->access_level;
-						$_SESSION['user_login_status'] = 1;
-
-					} else {
-						$this->errors[] = "Wrong password. Try again.";
-					}
-				} else {
-					$this->errors[] = "This user does not exist.";
-				}
-			} else {
-				$this->errors[] = "Database connection problem.";
+		$post = array($_POST['user_name'], $_POST['user_password']);
+		$settings = include('../config/settings.php');
+		$users = include('config/users.php');
+		$_SESSION['logged_in'] = false;
+		if (array_key_exists($post[0], $users)) {
+			if (password_verify($post[1], $users[$post[0]]['password'])) {
+				$_SESSION['logged_in'] = true;
+				$_SESSION['user_name'] = $post[0];
+				$_SESSION['access_level'] = $users[$post[0]]['access_level'];
+				$_SESSION['user_id'] = $users[$post[0]]['id'];
 			}
 		}
 	}
 
-	/**
-	 * perform the logout
-	 */
-	public function doLogout()
+	public function logout()
 	{
-		// delete the session of the user
-		$_SESSION = array();
-		session_destroy();
-		// return a little feeedback message
-		$this->messages[] = "You have been logged out.";
-
+		$_SESSION['logged_in'] = false;
 	}
 
-	/**
-	 * simply return the current state of the user's login
-	 * @return boolean user's login status
-	 */
-	public function isUserLoggedIn()
+	public function logged_in()
 	{
-		if (isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] == 1) {
+		if ($_SESSION['logged_in'] = true) {
 			return true;
+		} else {
+			return false;
+
 		}
-		// default return
-		return false;
 	}
-	/**
-	 * simply return the current state of the user's login
-	 * @return boolean user's login status
-	 */
-	public function UserAccessLevel()
+
+	public function register()
 	{
-		return $_SESSION['access_level'];
+		$return = '';
+		$users = include('config/users.php');
+		if (isset($_POST['user_name'])) {
+			$formData = array($_POST['user_name'], $_POST['user_pass'], $_POST['user_pass_repeat'], $_POST['access_level']);
+			if (array_key_exists($formData[0], $users)) {
+				return 'Username already exists!';
+			} else {
+				if ($formData[1] == $formData[2] && $formData[0] != '' && $formData[1] !== '') {
+					$hash = password_hash($formData[1], PASSWORD_DEFAULT);
+					$username = $formData[0];
+					$access_level = $formData[3];
+					$user_id = count($users);
+					$return = "'" . $username . "' => ['id' => " . $user_id . ", 'password' => '" . $hash . "', 'access_level' => " . $access_level . "],";
+				} else {
+					$hash = 'PASSWORDS DID NOT MATCH!';
+				}
+			}
+			return $return;
+		}
 	}
 }

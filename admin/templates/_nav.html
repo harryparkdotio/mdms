@@ -11,10 +11,10 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				{% if loggedin %}
+				{% if user.loggedin %}
 					<li><a href="/cms/flatfile/admin">Home</a></li>
 					<li><a href="/cms/flatfile/admin/pages">Pages</a></li>
-					{% if admin %}
+					{% if user.admin %}
 						<li><a href="/cms/flatfile/admin/partials">Partials</a></li>
 						<li><a href="/cms/flatfile/admin/users">Users</a></li>
 						<li><a href="/cms/flatfile/admin/settings">Settings</a></li>
@@ -22,9 +22,9 @@
 				{% endif %}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				{% if loggedin %}
+				{% if user.loggedin %}
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b>{{ user.username }}</b> <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <b>{{ user.username }}</b> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="/cms/flatfile/admin/user/profile">Profile</a></li>
 							<li role="separator" class="divider"></li>

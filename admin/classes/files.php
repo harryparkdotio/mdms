@@ -1,9 +1,8 @@
 <?php
 
-require_once('../config/settings.php');
-require_once('classes/functions.php');
+require_once('functions.php');
 
-class File
+class Files
 {
 	/**
 	 * @var array Collection of error messages
@@ -16,11 +15,11 @@ class File
 
 	public function __construct()
 	{
-		$url = new URL();
+		$functions = new Functions();
 		if (isset($_POST["save"])) {
 			$this->editPage();
-		} elseif ($url->url(0) == 'pages' && $url->url(1) == 'delete' && $url->url(2) != '') {
-			$this->deletePage($url->url(2));
+		} elseif ($functions->url(0) == 'pages' && $functions->url(1) == 'delete' && $functions->url(2) != '') {
+			$this->deletePage($functions->url(2));
 		} elseif (isset($_POST["newfilename"])) {
 			$this->newPage();
 		} elseif (isset($_POST["savepartial"])) {
@@ -42,6 +41,14 @@ class File
 			}
 		}
 		return $result;
+	}
+
+	public function numPages()
+	{
+		$num = 0;
+		$arr = $this->listDirectory('../content/');
+		$num = count($arr);
+		return $num;
 	}
 
 	private function newPage()
@@ -72,9 +79,9 @@ class File
 
 	private function editPage()
 	{
-		$settings = new Settings();
+		$settings = include('config/settings.php');
 
-		if ($settings->editor == 'simple') {
+		if ($settings['editor'] == 'simple') {
 			$title = $_POST['title'];
 			$description = $_POST['description'];
 			$template = $_POST['template'];
@@ -134,8 +141,8 @@ class File
 
 	private function editPartial()
 	{
-		$settings = new Settings();
-		$currentTheme = $settings->activeTheme;
+		$settings = include('../config/settings.php');
+		$currentTheme = $settings['theme'];
 		$content = $_POST['content'];
 		$page = $content;
 

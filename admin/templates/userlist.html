@@ -16,7 +16,6 @@
 	<thead>
 		<th>User</th>
 		<th>ID</th>
-		<th>Email</th>
 		<th>Access Level</th>
 		<th></th>
 	</thead>
@@ -24,9 +23,8 @@
 	<tbody>
 		{% for user in users %}
 			<tr>
-				<td>{{ user.user_name }}</td>
-				<td>{{ user.user_id }}</td>
-				<td>{{ user.user_email }}</td>
+				<td>{{ user.username }}</td>
+				<td>{{ user.id }}</td>
 				<td>{{ user.access_level }}</td>
 				<td class="text-right">{{ user.functions | raw }}</td>
 			</tr>

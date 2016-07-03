@@ -5,12 +5,12 @@
 {% block content %}
 
 <div class="container">
-	<form action="{{ urldepth }}" method="post" name="save">
+	<form action="{{ urldepth }}pages" method="post" name="save">
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon">content/</span>
 				<input value="{{ filename }}" type="text" class="form-control" name="filename">
-				<span class="input-group-addon"><a target="_blank" href="/cms/flatfile/{{ link }}">View</a></span>
+				<span class="input-group-addon"><a target="_blank" href="/cms/flatfile/{{ link }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a></span>
 			</div>
 		</div>
 		<div class="form-group header-editor">
@@ -23,7 +23,10 @@
 		</div>
 		<div class="input-group">
 			<input value="{{ filename }}" type="hidden" name="oldfilename">
-			<input type="submit" class="form-control btn btn-primary" name="save" value="save">
+		</div>
+
+		<div class="input-group">
+			<input type="submit" class="btn btn-primary" role="button" name="save" value="save">
 		</div>
 	</form>
 </div>

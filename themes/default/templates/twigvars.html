@@ -1,0 +1,33 @@
+<?php
+
+{{ config }} // contains config/config.php
+{{ base_dir }} // path of root
+{{ base_url }}
+{{ theme_dir }} // path of current active theme
+{{ theme_url }} 
+{{ rewrite_url }}
+{{ site_title }} // title of the site - set in config/config.php
+{{ meta }} // contains array of meta values
+	{{ meta.title }}
+	{{ meta.description }}
+	{{ meta.author }}
+	{{ meta.date }}
+	{{ meta.date_formatted }}
+	{{ meta.time }}
+	{{ meta.robots }}
+{{ content }} // contains markdown parsed content
+{{ pages }} 
+	{{ page.id }}
+	{{ page.url }}
+	{{ page.title }}
+	{{ page.description }}
+	{{ page.author }}
+	{{ page.time }}
+	{{ page.date }}
+	{{ page.date_formatted }}
+	{{ page.raw_content }}
+	{{ page.meta }}
+{{ prev_page }} // relative to current_page
+{{ current_page }}
+{{ next_page }} // relative to current_page
+{{ is_front_page }}
