@@ -1,5 +1,5 @@
 # mdms
-mdms - Markdown Management System; a simple markdown (the most awesome text file you will hear about. period.) based flat file (no databases here!) content management system.
+mdms - Markdown Management System; a simple markdown (the most awesome type of text file you will ever hear about. period.) based flat file (no databases here!) content management system.
 <hr>
 
 ## Fully Featured Admin Panel
@@ -9,6 +9,7 @@ mdms - Markdown Management System; a simple markdown (the most awesome text file
 mdms automagically makes all url's friendly for the user.
 say a file is located at *content/hello/world.md* the url would be *example.com/hello/world*
 this is all done within php and a single ***.htaccess*** file.
+#### make sure you copy over the .htacces file
 
 ## Twig Templating
 mdms uses the popular twig templating system, so users of Django or Jinja rejoice!
@@ -24,7 +25,7 @@ mdms allows child pages; pages which can be *included* in another file. *Hint: t
 <hr>
 
 # Installation
-mdms is fairly easy to install. Just edit a couple files, drag and drop and its deployed!
+mdms is fairly easy to install. Just drag and drop and its deployed!
 
 ## No admin panel
 If you don't want the awesome admin panel designed specifically for mdms, just delete the admin folder*.
@@ -32,21 +33,16 @@ If you don't want the awesome admin panel designed specifically for mdms, just d
 Note: this installation type is still mostly untested, for this reason, you might want to have a look through the code before you attempt to deploy this installation type.
 
 ## Admin Panel
-create a new databse by the name of 'login'.
-run the SQL script below to create a new table:
+login to the admin panel with:
+```
+Username: username
+Password: password
+```
 
-```
-CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'auto incrementing user_id of each user, unique index',
-  `access_level` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'defines user access level for associated rights',
-  `user_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s name, unique',
-  `user_password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s password in salted and hashed format',
-  `user_email` varchar(64) COLLATE utf8_unicode_ci NOT NULL COMMENT 'user''s email, unique',
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_name` (`user_name`),
-  UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='user data' AUTO_INCREMENT=1 ;
-```
+Then create a new user via the 'users' tab. Enter your chosen username and password, and select *'10'* for the access level (admin). Copy and paste the output to ```admin/config/users.php``` as well as deleting the current user within the file.
+
+Go ahead and logout, then log in again with your new username and password.
+
 
 Then browse to admin/config/db.php, and edit the file to your specific settings
 
@@ -60,7 +56,6 @@ Feel free to fork this repo, and let me know of any changes/additions you think 
 #### What you can help with:
 - Documentation
 - Theming
-- Login (move to sqlite)
-- General cleanup & Optimization
+- General cleanup + Optimization
 - Making awesome themes!
-- Installation (instructions & drag/drop install)
+- Installation (instructions + drag/drop install)
