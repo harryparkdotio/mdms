@@ -18,8 +18,8 @@ class Files
 		$functions = new Functions();
 		if (isset($_POST["save"])) {
 			$this->editPage();
-		} elseif ($functions->url(0) == 'pages' && $functions->url(1) == 'delete' && $functions->url(2) != '') {
-			$this->deletePage($functions->url(2));
+		} elseif (isset($_POST["page"])) {
+			$this->deletePage($_POST["page"]);
 		} elseif (isset($_POST["newfilename"])) {
 			$this->newPage();
 		} elseif (isset($_POST["savepartial"])) {

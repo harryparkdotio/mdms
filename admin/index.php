@@ -1,16 +1,14 @@
 <?php
 
-// call this function to enable error reporting, like this ** debug(true); **
-function debug($enable)
-{
-	if ($enable == true) {
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
-	}
-}
-
-debug(true);
+/**
+ *
+ * @author Harry Park <harry@harrypark.io>
+ * @link http://harrypark.io
+ * @license http://opensource.org/licenses/MIT
+ * @version 0.4
+ * @package mdms - markdown management system
+ * @subpackage Admin
+ */
 
 session_start();
 

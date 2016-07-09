@@ -1,7 +1,9 @@
 ---
-title: TITLE
-description: DESCRIPTION
-template: TEMPLATE
-parent: self
+title: 
+description: 
+author: 
+status:  
+template: 
+chilpages: 
 ---
-MARKDOWN
+Content

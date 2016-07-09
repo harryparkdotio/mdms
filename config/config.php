@@ -1,45 +1,49 @@
 <?php
 
 /**
- * mdms configuration
+ * mdms config
  *
- * @author  Harry Park
+ * @author  Harry Park <harry@harrypark.io>
  * @link    http://harrypark.io
  * @license http://opensource.org/licenses/MIT The MIT License
- * @version 0.2
  */
-
 
 // BASIC
 $config['site_title'] = 'mdms';
-$config['base_url'] = '';
+$config['base_url'] = 'mdms'; // must have starting & trailing slashes. http://example.com/BASE_URL
+$config['meta'] = [ // add your meta info here. Note, these will be overwritten if specified in yaml header of .md file
+	'title' => '',
+	'description' => '',
+	'author' => '',
+	'robots' => '',
+];
 
 // THEME
 $config['theme'] = 'default';
 $config['twig_config'] = array(
-	'cache' => false, // To enable Twig caching change this to a path to a writable directory
-	'autoescape' => false, // Auto-escape Twig vars
-	'debug' => false // Enable Twig debug
+	'cache' => false,
+	'autoescape' => false,
+	'debug' => false
 );
-
-// CONTENT
-$config['date_format'] = '%D %T';
-$config['content_dir'] = 'content/';
-$config['content_ext'] = '.md';
-
-// TIMEZONE
-$config['timezone'] = 'AEST';
 
 // PLUGINS
-$config['plugins'] = array(
-	'Admin' => false,
-	'Blog' => true,
-	'Example' => false,
-);
+$config['enableByDefault'] = true; // true, specify which plugins to disable; false, specify which plugins to enable
 
-// TEMP NAV
-$config['nav'] = array(
-	'Home' => '',
+// Blog
+$config['Blog.enabled'] = false; // NOT READY FOR PRODUCTION; TRY AT YOUR OWN RISK.
+
+// GoogleAnalytics
+$config['google_tracking_id'] = 'UA-77005711-1';
+
+// Navigation
+$config['navbar'] = [ // link => name
+	'Home'=> '',
 	'About' => 'about',
-	'Download' => 'download',
-);
+	'Documentation'	=> 'documentation',
+	'Plugins' => 'plugins',
+];
+$config['navbar_type'] = 'static'; // static / default / fixed
+$config['navbar_brand'] = ['mdms' => ''];
+
+// TIMEZONE
+$config['timezone'] = 'UTC';

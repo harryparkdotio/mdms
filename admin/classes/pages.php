@@ -25,7 +25,7 @@ class Pages
 		Twig_Autoloader::register();
 		$loader = new Twig_Loader_Filesystem('templates');
 		$twig = new Twig_Environment($loader);
-		$twig->getExtension('core')->setTimezone($this->functions->getConfig('timezone')); // ADD TIMEZONE FROM SETTINGS
+		$twig->getExtension('core')->setTimezone('AEST'); // ADD TIMEZONE FROM SETTINGS
 		return $twig->render($template . '.html', $values);
 	}
 
@@ -40,13 +40,26 @@ class Pages
 	public function defaults()
 	{
 		$loggedin = false;
-		if ($_SESSION['logged_in'] == 1) {
-			$loggedin = true;
+		if (isset($_SESSION['logged_in'])) {
+			if ($_SESSION['logged_in'] == 1) {
+				$loggedin = true;
+			}
 		}
 
 		$admin = false;
-		if ($_SESSION['access_level'] >= 10) {
-			$admin = true;
+		if (isset($_SESSION['access_level'])) {
+			if ($_SESSION['access_level'] >= 10) {
+				$admin = true;
+			}
+		} else {
+			$_SESSION['access_level'] = null;
+		}
+
+		if (!isset($_SESSION['user_name'])) {
+			$_SESSION['user_name'] = null;
+		}
+		if (!isset($_SESSION['user_id'])) {
+			$_SESSION['user_id'] = null;
 		}
 
 		$Users = array();
@@ -96,9 +109,9 @@ class Pages
 		foreach ($filelist as &$value) {
 			$file = '../content/' . $value;
 			$page = str_replace('../content/', '', str_replace('.md', '', str_replace('/index.md', '/', str_replace('content/index.md', '/', $file))));
-			$lastedit = date('D d M y \- g:i a', filemtime($file));
+			$lastedit = date('d M y \- g:ia', filemtime($file));
 			$link = str_replace('.md', '', str_replace('../content/', '', $file));
-			$functions = '<a target="_blank" href="/cms/flatfile/'.$link.'"><i class="fa fa-eye" aria-hidden="true"></i> View</a> '.'<a href="pages/edit/' . $value . '"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a> '.'<a href="pages/delete/' . $value . '"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>'; //fix basepathing
+			$functions = '<a class="btn btn-default btn-xs" target="_blank" href="/cms/flatfile/'.$link.'"><i class="fa fa-eye" aria-hidden="true"></i> View</a> '.'<a class="btn btn-default btn-xs" href="pages/edit/' . $value . '"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a> '.'<a class="btn btn-default btn-xs" style="cursor:pointer" onclick="Delete(' . '\'' . $value . '\'' . ')"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>'; //fix basepathing
 			$yaml = new FrontMatter($file);
 
 			if ($yaml->keyExists('childpages')) {

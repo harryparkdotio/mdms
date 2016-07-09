@@ -8,7 +8,7 @@
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="favicon.ico">
 		<!-- Bootstrap -->
-		{{ bootstrap_css }}
+		<link rel="stylesheet" href="{{ urldepth }}{{ theme.dir }}bootstrap/css/bootstrap.min.css">
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ urldepth }}{{ theme.dir }}main.css">
 
@@ -42,27 +42,18 @@
 
 		{% block content %}
 			<div class="container">
-				<div class="jumbotron">
-					<h1>{{ page.title }}</h1>
-					<h5>{% if page.author %}By {{ page.author }}{% endif %}</h5>
-					<h3>{{ page.description }}</h3>
-					{{ page.content|raw }}
-				</div>
-				{% for key in child %}
-					<div class="jumbotron">
-						<h1>{{ key.title }}</h1>
-						<h5>{% if key.author %}By {{ key.author }}{% endif %}</h5>
-						<h3>{{ key.description }}</h3>
-						{{ key.content|raw }}
-					</div>
-				{% endfor %}
+				<h1>{{ page.title }}</h1>
+				<h5>{% if page.author %}By {{ page.author }}{% endif %}</h5>
+				<h3>{{ page.description }}</h3>
+				{{ page.content|raw }}
 			</div>
 		{% endblock %}
 
 		{% include 'partials/_footer.html' %}
 
 		<!-- Bootstrap -->
-		{{ bootstrap_js }}
+		<script src="{{ urldepth }}{{ theme.dir }}bootstrap/js/bootstrap.min.js"></script>
+
 	</body>
 
 </html>

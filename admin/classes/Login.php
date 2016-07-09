@@ -18,8 +18,12 @@ class Login
 
 	public function login()
 	{
+		$_SESSION['logged_in'] = null;
+		$_SESSION['user_name'] = null;
+		$_SESSION['access_level'] = null;
+		$_SESSION['user_id'] = null;
 		$post = array($_POST['user_name'], $_POST['user_password']);
-		$settings = include('../config/settings.php');
+		$settings = include('../config/config.php');
 		$users = include('config/users.php');
 		$_SESSION['logged_in'] = false;
 		if (array_key_exists($post[0], $users)) {

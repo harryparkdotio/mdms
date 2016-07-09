@@ -55,7 +55,7 @@ Feel free to fork this repo, and let me know of any changes/additions you think 
 
 #### What you can help with:
 - Documentation
-- Theming
 - General cleanup + Optimization
 - Making awesome themes!
+- Making awesome plugins!
 - Installation (instructions + drag/drop install)

@@ -5,14 +5,17 @@
  * @author Harry Park <harry@harrypark.io>
  * @link http://harrypark.io
  * @license http://opensource.org/licenses/MIT
- * @version 0.2
+ * @version 0.4
  * @package mdms - markdown management system
  *
  */
 
+// Because mdms doesn't use composer (so it works with shared hosting servers) we have to load packages manually.
 require_once('backend/parsedown.php');
 require_once('backend/frontmatter.php');
 require_once('backend/Twig/Autoloader.php');
+
+require_once('plugins/Plugins.php');
 
 class mdms
 {
@@ -25,6 +28,7 @@ class mdms
 
 	// PAGE
 	public $page;
+	public $pageError = 0; // 0 = none, 1 = 404, 2 = plugin override.
 	public $template;
 	public $values;
 	public $theme;
@@ -32,41 +36,18 @@ class mdms
 	public $content;
 
 	// URL
-	public $baseurl;
+	public $base;
 	public $urldepth;
 	public $url;
-	public $requestedPage;
+	public $RequestUrl;
 
-	public function __construct() // load packages; assign to vars
+	public function __construct()
 	{
-		$this->debug(true);
 		$this->loadPlugins();
+		$this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
 		$this->loadConfig();
-		$this->run();
-	}
-
-	public function run()
-	{
-		$this->getPlugin('Blog');
-		$this->markdown = new Parsedown();
+		$this->triggerEvent('onConfigLoaded', array(&$this->config));
 		$this->getPage();
-		$this->pageExists();
-		$this->pageStatus();
-		$this->defaultValues();
-		$this->PageValues();
-		$this->Children();
-		$this->theme();
-		$this->template();
-		$this->Render();
-	}
-
-	public function debug($enable)
-	{
-		if ($enable == true) {
-			ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
-		}
 	}
 
 	public function loadConfig()
@@ -94,6 +75,7 @@ class mdms
 
 	protected function getFiles($directory, $fileExtension = '')
 	{
+		$this->cleanContentDirectory('content/');
 		$directory = rtrim($directory, '/');
 		$result = array();
 		$files = scandir($directory, 0);
@@ -106,14 +88,23 @@ class mdms
 					continue;
 				}
 				if (is_dir($directory . '/' . $file)) {
-					// get files recursively --> sub dirs
-					$result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension, $order));
+					// get files recursively --> for files within sub dirs
+					$result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension));
 				} elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
 					$result[] = $directory . '/' . $file;
 				}
 			}
 		}
 		return $result;
+	}
+
+	private function cleanContentDirectory($path)
+	{
+		$empty = true;
+		foreach (glob($path.DIRECTORY_SEPARATOR."*") as $file) {
+			$empty &= is_dir($file) && $this->cleanContentDirectory($file);
+		}
+		return $empty && rmdir($path);
 	}
 
 	protected function loadPlugins()
@@ -149,59 +140,86 @@ class mdms
 	{
 		$this->baseurl = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
 		$this->url = str_replace($this->baseurl, '', $_SERVER['REQUEST_URI']);
-		$this->requestedPage = str_replace($this->baseurl, '', $_SERVER['REQUEST_URI']);
 
 		// adds the content folder prefix (content/), adds the markdown file extension (.md)
-		$this->page = 'content/' . $this->requestedPage . '.md';
-		$this->yaml = new FrontMatter($this->page);
-		$this->urldepth = str_repeat('../', substr_count($this->requestedPage, '/'));
+		$this->RequestUrl = str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']);
+		$this->triggerEvent('onRequestUrl', array(&$this->RequestUrl));
+		$this->page = 'content/' . str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']) . '.md';
+		$this->urldepth = str_repeat('../', substr_count(str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']), '/'));
+		$this->pageExists();
 	}
 
 	public function pageExists()
 	{
 		if (!file_exists($this->page)) {
-			$this->page = str_replace('/.md', '.md', $this->page);
-			if (!file_exists($this->page)) {
+			if (substr($this->page, -4) !== '/.md') {
 				$this->page = str_replace('.md', '/index.md', $this->page);
+			}
+			if (!file_exists($this->page)) {
+				$this->page = str_replace('/.md', '/index.md', $this->page);
 				if (!file_exists($this->page)) {
-					$this->page = 'content/404.md'; // returns if no page found
+					$this->page = str_replace('/index.md', '.md', $this->page);
+					if (!file_exists($this->page)) {
+						$this->page = 'content/404.md'; // returns if no page found
+						$this->pageError = 1;
+						$this->triggerEvent('on404error', array(&$this->pageError));
+					}
 				}
 			}
+		}
+		$this->triggerEvent('getPage', array(&$this->page));
+		if ($this->pageError < 2) {
+			$this->pageStatus();
+		} else {
+			$this->defaultValues();
 		}
 	}
 
 	public function pageStatus()
 	{
+		$this->yaml = new FrontMatter($this->page);
 		if ($this->yaml->keyExists('status')) {
 			$state = $this->yaml->fetch('status');
-			if ($state == 'archived' || $state = 'draft') {
-				$this->page = 'content/404.md';
+			if ($this->page !== 'content/404.md') {
+				if ($state == 'archived' || $state == 'draft') {
+					$this->page = 'content/404.md';
+				}
 			}
-			$this->yaml = new FrontMatter($this->page);
 		}
+		$this->yaml = new FrontMatter($this->page);
+		$this->defaultValues();
 	}
 
 	public function defaultValues()
 	{
 		$this->values = array(
+			'config' => $this->getConfig(),
 			'urldepth' => $this->urldepth,
-			'base' => $this->baseurl,
+			'base_url' => $this->getConfig('base_url'),
+			'base' => $this->base,
 			'year' => date("Y"),
+			'pagelinks' => $this->getConfig('nav'),
+			'nav_title' => $this->getConfig('nav_title'),
 		);
-		$this->values['pagelinks'] = $this->getConfig('nav');
+		if ($this->pageError < 2) {
+			$this->PageValues();
+		} else {
+			$this->Render();
+		}
 	}
 
 	public function PageValues()
 	{
-		$this->yaml = new FrontMatter($this->page); // page state
 		$page = array();
 		foreach ($this->yaml->values as $value) {
 			$page[$value] = $this->yaml->fetch($value);
 		}
+		$this->markdown = new Parsedown();
 		$page['content'] = $this->markdown->text($this->yaml->fetch('content'));
 		$this->content = $this->markdown->text($this->yaml->fetch('content'));
 		$this->values['page'] = $page;
 		$this->headers = $page;
+		$this->Children();
 	}
 
 	public function Children()
@@ -210,31 +228,35 @@ class mdms
 			unset($this->values['childpages']);
 			$children = explode(' ', $this->yaml->fetch('childpages'));
 			$child = array();
+			$count = 0;
 			foreach ($children as &$value) {
+				$count += 1;
 				$page = array();
 				$importChild = new FrontMatter('content/' . $value . '.md');
 				foreach ($importChild->values as $valuez) {
 					$page[$valuez] = $this->yaml->fetch($valuez);
 				}
 				$page['content'] = $this->markdown->text($importChild->fetch('content'));
-				$child[$value] = $page;
+				$child[$count] = $page;
 			}
 			$this->values['child'] = $child;
 		}
+		$this->theme();
 	}
 
 	public function theme()
 	{
 		$this->theme = $this->getConfig('theme');
-		$this->yaml = new FrontMatter('themes/' . $this->theme . '/theme.yaml');
+		$themeyaml = new FrontMatter('themes/' . $this->theme . '/theme.yaml');
 
 		$theme_info = array();
-		foreach ($this->yaml->values as $value) {
-			$theme_info[$value] = $this->yaml->fetch($value);
+		foreach ($themeyaml->values as $value) {
+			$theme_info[$value] = $themeyaml->fetch($value);
 		}
 
 		$theme_info['dir'] = 'themes/' . $this->theme . '/assets/';
 		$this->values['theme'] = $theme_info;
+		$this->template();
 	}
 
 	public function template()
@@ -249,14 +271,34 @@ class mdms
 		} else {
 			$this->template = '/templates/index.html';
 		}
+		$this->Render();
 	}
 
 	public function Render()
 	{
+		$values = $this->values;
+		$template = $this->template;
+		$templateDir = 'themes/' . $this->getConfig('theme');
 		Twig_Autoloader::register();
-		$loader = new Twig_Loader_Filesystem('themes/' . $this->getConfig('theme'));
+		$this->triggerEvent('beforeRender', array(&$values, &$template, &$templateDir));
+		$loader = new Twig_Loader_Filesystem($templateDir);
 		$twig = new Twig_Environment($loader, $this->getConfig('twig_config'));
 		$twig->addExtension(new Twig_Extension_Debug());
-		echo $twig->render($this->template, $this->values);
+		$twig->getExtension('core')->setTimezone($this->getConfig('timezone'));
+		$output = $twig->render($template, $values);
+		echo $output;
+		return $output;
+	}
+
+	public function triggerEvent($eventName, array $params = array())
+	{
+		if (!empty($this->plugins)) {
+			foreach ($this->plugins as $plugin) {
+				if (is_a($plugin, 'Plugins')) {
+					$params['pluginconfig'] = $this->config;
+					$plugin->handleEvent($eventName, $params);
+				}
+			}
+		}
 	}
 }

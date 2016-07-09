@@ -9,17 +9,17 @@
 		<div class="form-group">
 			<div class="input-group">
 				<span class="input-group-addon">content/</span>
-				<input value="{{ filename }}" type="text" class="form-control" name="filename">
+				<input value="{{ filename }}" type="text" class="form-control" name="filename" autocomplete="off">
 				<span class="input-group-addon"><a target="_blank" href="/cms/flatfile/{{ link }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a></span>
 			</div>
 		</div>
 		<div class="form-group header-editor">
 			<label for="header">Header (YAML):</label>
-			<textarea name="header" class="form-control" rows="5" id="header">{{ header }}</textarea>
+			<textarea name="header" class="form-control" rows="5" id="header" autocomplete="off">{{ header }}</textarea>
 		</div>
 		<div class="form-group content-editor">
 			<label for="content">Content (Markdown):</label>
-			<textarea name="content" class="form-control" rows="20" id="content">{{ content }}</textarea>
+			<textarea name="content" class="form-control" rows="20" id="content" autocomplete="off">{{ content }}</textarea>
 		</div>
 		<div class="input-group">
 			<input value="{{ filename }}" type="hidden" name="oldfilename">
