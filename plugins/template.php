@@ -13,5 +13,5 @@ require_once('Plugins.php');
 
 class TEMPLATE extends Plugins
 {
-	protected $enabled = true;
+	public $enabled = false; // SET THIS TRUE TO FORCE ENABLE (can still disable in config after load)
 }

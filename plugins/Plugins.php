@@ -1,5 +1,11 @@
 <?php
 
+// PLUGINS TO ADD
+// image gallery
+// image loader
+// navigation
+// admin panel
+
 class Plugins
 {
 	public $config;
@@ -17,9 +23,13 @@ class Plugins
 	public function isEnabled()
 	{
 		if (isset($this->config[get_called_class() . '.enabled'])) {
-			return $this->config[get_called_class() . '.enabled'];
+			if ($this->config[get_called_class() . '.enabled'] == false) {
+				return false;
+			} else {
+				return true;
+			}
 		} else {
-			return true;
+			return $this->config['enableByDefault'];
 		}
 	}
 }

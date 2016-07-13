@@ -39,7 +39,7 @@ Username: username
 Password: password
 ```
 
-Then create a new user via the 'users' tab. Enter your chosen username and password, and select *'10'* for the access level (admin). Copy and paste the output to ```admin/config/users.php``` as well as deleting the current user within the file.
+Then create a new user via the 'users' tab. Enter your chosen username and password, and select *'10'* for the access level (admin). Copy and paste the output to ```plugins/Admin/config/users.php``` as well as deleting the current user within the file.
 
 Go ahead and logout, then log in again with your new username and password.
 

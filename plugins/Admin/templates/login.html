@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% if login.errors %}
+	{% for error in login.errors %}
+		<div class="alert alert-danger alert-dismissible wow fadeInUp" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Something is wrong:</strong><br>
+			{{ error }}
+		</div>
+	{% endfor %}
+{% endif %}
+
+{% if login.messages %}
+	{% for message in login.messages %}
+		<div class="alert alert-success alert-dismissible wow fadeInUp" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			{{ message }}
+		</div>
+	{% endfor %}
+{% endif %}
+
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<h1 class="text-center">Login</h1>
+
+		<form method="post" action="{{ base }}admin" name="loginform">
+			<!-- Username -->
+			<div class="form-group">
+				<input type="text" id="username" name="user_name" class="form-control" required>
+				<label for="username">Username</label>
+			</div>
+			<!-- Password -->
+			<div class="form-group">
+				<input type="password" id="password" class="form-control" name="user_password" required>
+				<label for="password">Password</label>
+			</div>
+			<!-- Submit -->
+			<input type="submit" value="Login" name="login" class="btn btn-primary pull-right">
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+
+<style type="text/css">
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	input:-webkit-autofill:active {
+		transition: background-color 5000s ease-in-out 0s;
+	}
+</style>
+
+{% endblock %}

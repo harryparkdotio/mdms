@@ -1,9 +1,0 @@
----
-title: 
-description: 
-author: 
-status:  
-template: 
-chilpages: 
----
-Content

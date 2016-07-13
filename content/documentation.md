@@ -29,6 +29,21 @@ Note that this gives you the current version of mdms, which may be unstable.
 
 - - -
 ## <span id="content">Content</span>
+
+### WARNING
+Filenames listed below are likely to cause errors (because of the .htaccess configuration)
+(* - Anything in that folder)
+```
+content/plugins.md
+content/themes.md
+content/config.md
+content/assets.md
+content/assets/*
+content/backend.md
+content/content.md
+content/content/*
+```
+- - -
 ### File Markup
 mdms uses the highly popular markdown file format. It also uses a yaml header for page specific variables, because of this, each file must have a *'header'* of sorts. Shown below is the correct layout for the header.
 
@@ -46,6 +61,10 @@ CONTENT
 These files are saved with the standard markdown extension (`.md`)
 
 [Markdown Reference Guide](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)<br>
+
+### Awesome features
+#### Twig variables in md content
+mdms allows you to parse variables from Twig (See *Creating Themes* below) into your markdown content.
 
 ### Assets
 Add all assets to the `assets` folder, images will only work if they use the `.jpg` file format for an unknown reason. just link files with `{{ urldepth }}assets/FILENAME.EXTENSION`. You can use the markdown or html variants for linking as markdown is parsed into html.
@@ -74,16 +93,18 @@ Converting from html over to a theme that can be used within mdms is actually re
 [Twig Templating Documentation](http://twig.sensiolabs.org/documentation)
 
 Useable 'tags' within themes can be added like so
-```
-{{ page }} the array with all page information enclosed.
-	{{ page.title }}
-	{{ page.description }}
-	{{ page.author }}
-	{{ page.content|raw }} //'|raw' is extremely important, because the markdown is parsed to html, it musn't be autoescpaed.
-{{ config }} encloses all data within the config array
-{{ theme.dir }} required to send the location of the themes assets folder.
-{{ base_url }} must be added for loading styling correctly, adds '../' for the amount of times a slash occurs in the url.
-```
+
+<pre style="white-space:pre-wrap;">
+&#123;&#123; url_depth &#125;&#125; Must be used when handling assets, not all url's have the same number of slashes.
+&#123;&#123; page &#125;&#125; the array with all page information enclosed.
+	&#123;&#123; page.title &#125;&#125;
+	&#123;&#123; page.description &#125;&#125;
+	&#123;&#123; page.author &#125;&#125;
+	&#123;&#123; page.content &#125;&#125; //'|raw' is extremely important, because the markdown is parsed to html, it musn't be autoescpaed.
+&#123;&#123; config &#125;&#125; encloses all data within the config array
+&#123;&#123; theme.dir &#125;&#125; required to send the location of the themes assets folder.
+&#123;&#123; base_url &#125;&#125; must be added for loading styling correctly, adds '../' for the amount of times a slash occurs in the url.
+</pre>
 
 The folder structure of a theme should look like so
 ```

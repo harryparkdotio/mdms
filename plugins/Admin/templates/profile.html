@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="row">
+	<h1>Profile</h1>
+	
+	<div class="col-md-4 col-md-offset-4">
+		<h3>Username: {{ user.username }}</h3>
+		<h3>ID: {{ user.id }}</h3>
+		<h3>Access Level: {{ user.access_level }}</h3>
+	</div>
+</div>
+
+{% endblock %}

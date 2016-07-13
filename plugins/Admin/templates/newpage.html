@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+	<form action="{{ urldepth }}admin/pages" method="post" name="newfile">
+
+		<div class="input-group">
+			<span class="input-group-addon">content/</span>
+			<input type="text" class="form-control" name="newfilename" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+    		<textarea class="form-control" rows="50" name="content" autocomplete="off">{{ mdtemplate }}</textarea>
+		</div>
+		<div class="input-group">
+			<input type="submit" class="btn btn-primary" value="Create" name="submit">
+		</div>
+
+	</form>
+</div>
+{% endblock %}

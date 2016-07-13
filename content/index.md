@@ -5,8 +5,14 @@ status: published
 template: index
 author: Harry Park
 ---
-mdms intends to keep it simple, mdms doesn't use a database. period. The use of flat file data storage techniques allow for content to be created, deleted, and edited quickly and easily. mdms shouldn't stop you from creating, it should help do it, simpler.
+mdms is intended to keep it simple stupid, no database, no worries. Flat file data storage allows for content to be created, deleted, and edited super quickly and easily.
 
-mdms is free and open source, every single piece of it. Do what you want with it, it won't cost you a penny.
+whether you're a markdown purist, hardcore developer, or first time user, mdms is easy to use and caters to **your** needs.
+
+mdms shouldn't stop you from creating, it should enable you to do it, simpler, faster, easier.
+
+mdms is free and **open source**! 
 
 <a target="_blank" href="https://github.com/harryparkdotio/mdms/releases" class="btn btn-primary">Download</a>
+
+[Github](https://github.com/harryparkdotio/mdms)

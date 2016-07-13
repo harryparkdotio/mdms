@@ -6,7 +6,7 @@
  * @author Harry Park <harry@harrypark.io>
  * @link http://harrypark.io
  * @license http://opensource.org/licenses/MIT
- * @version 0.2
+ * @version 0.1
  */
 
 require_once('Plugins.php');

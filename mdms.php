@@ -43,11 +43,21 @@ class mdms
 
 	public function __construct()
 	{
+		$this->debug(true);
 		$this->loadPlugins();
 		$this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
 		$this->loadConfig();
 		$this->triggerEvent('onConfigLoaded', array(&$this->config));
 		$this->getPage();
+	}
+
+	public function debug($enable)
+	{
+		if ($enable == true) {
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+		}
 	}
 
 	public function loadConfig()
@@ -75,7 +85,7 @@ class mdms
 
 	protected function getFiles($directory, $fileExtension = '')
 	{
-		$this->cleanContentDirectory('content/');
+		$this->cleanContentDirectory($directory);
 		$directory = rtrim($directory, '/');
 		$result = array();
 		$files = scandir($directory, 0);
@@ -138,8 +148,8 @@ class mdms
 
 	public function getPage()
 	{
-		$this->baseurl = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
-		$this->url = str_replace($this->baseurl, '', $_SERVER['REQUEST_URI']);
+		$this->base = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
+		$this->url = str_replace($this->base, '', $_SERVER['REQUEST_URI']);
 
 		// adds the content folder prefix (content/), adds the markdown file extension (.md)
 		$this->RequestUrl = str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']);
@@ -226,7 +236,11 @@ class mdms
 	{
 		if ($this->yaml->keyExists('childpages')) {
 			unset($this->values['childpages']);
-			$children = explode(' ', $this->yaml->fetch('childpages'));
+			$children = $this->yaml->fetch('childpages');
+			$children = explode(', ', $children);
+			if (!is_array($children)) {
+				$children = explode(' ', $children);
+			}
 			$child = array();
 			$count = 0;
 			foreach ($children as &$value) {
@@ -234,7 +248,7 @@ class mdms
 				$page = array();
 				$importChild = new FrontMatter('content/' . $value . '.md');
 				foreach ($importChild->values as $valuez) {
-					$page[$valuez] = $this->yaml->fetch($valuez);
+					$page[$valuez] = $importChild->fetch($valuez);
 				}
 				$page['content'] = $this->markdown->text($importChild->fetch('content'));
 				$child[$count] = $page;
@@ -242,7 +256,7 @@ class mdms
 			$this->values['child'] = $child;
 		}
 		$this->theme();
-	}
+	} 
 
 	public function theme()
 	{
@@ -253,7 +267,7 @@ class mdms
 		foreach ($themeyaml->values as $value) {
 			$theme_info[$value] = $themeyaml->fetch($value);
 		}
-
+		$this->theme = str_replace(' ', '%20', $this->theme);
 		$theme_info['dir'] = 'themes/' . $this->theme . '/assets/';
 		$this->values['theme'] = $theme_info;
 		$this->template();
@@ -276,15 +290,29 @@ class mdms
 
 	public function Render()
 	{
+		if (!isset($this->config['timezone'])) {
+			$this->config['timezone'] = 'UTC';
+		}
+		
 		$values = $this->values;
 		$template = $this->template;
 		$templateDir = 'themes/' . $this->getConfig('theme');
 		Twig_Autoloader::register();
 		$this->triggerEvent('beforeRender', array(&$values, &$template, &$templateDir));
 		$loader = new Twig_Loader_Filesystem($templateDir);
-		$twig = new Twig_Environment($loader, $this->getConfig('twig_config'));
-		$twig->addExtension(new Twig_Extension_Debug());
+		$twig = new Twig_Environment($loader, array('autoescape' => false, 'cache' => false, 'debug' => false));
 		$twig->getExtension('core')->setTimezone($this->getConfig('timezone'));
+		$twig_env = new Twig_Environment(new Twig_Loader_String);
+		if (isset($values['page']['content'])) {
+			$twig_env = new Twig_Environment(new Twig_Loader_String);
+			$values['page']['content'] = $twig_env->render($values['page']['content'], $values);
+		}
+		if (isset($values['child'])) {
+			$twig_env = new Twig_Environment(new Twig_Loader_String);
+			foreach ($values['child'] as $key => $val) {
+				$values['child'][$key]['content'] = $twig_env->render($values['child'][$key]['content'], $values);
+			}
+		}
 		$output = $twig->render($template, $values);
 		echo $output;
 		return $output;
@@ -295,7 +323,7 @@ class mdms
 		if (!empty($this->plugins)) {
 			foreach ($this->plugins as $plugin) {
 				if (is_a($plugin, 'Plugins')) {
-					$params['pluginconfig'] = $this->config;
+					$params['pluginconfig'] = $this->getConfig();
 					$plugin->handleEvent($eventName, $params);
 				}
 			}
