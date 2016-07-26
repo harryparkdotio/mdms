@@ -6,7 +6,7 @@
  * @author Harry Park <harry@harrypark.io>
  * @link http://harrypark.io
  * @license http://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.1
  */
 
 // ESCAPE ALL $_POST REQUESTS
@@ -66,7 +66,7 @@ class Admin extends Plugins
 			}
 
 			$pagefunction = $this->getPage($this->url);
-			
+
 			$this->template = $this->$pagefunction()[0];
 			$this->values = $this->$pagefunction()[1];
 		}
@@ -249,13 +249,15 @@ class Admin extends Plugins
 	public function Pages()
 	{
 		if (isset($_POST["delpage"])) {
-			if (file_exists('content/' . $_POST["delpage"])) {
-				unlink('content/' . $_POST["delpage"]);
+			$f = $_POST["delpage"];
+			$f = rtrim($f, '.md') . '.md';
+			if (file_exists('content/' . $f)) {
+				unlink('content/' . $f);
 				$this->cleanDir('content/');
 			}
 
-			if (!file_exists('content/' . $_POST["delpage"])) {
-				$this->notifications = ['success' => '<b>' . $_POST["delpage"] . '</b> Successfully Deleted.'];
+			if (!file_exists('content/' . $f)) {
+				$this->notifications = ['success' => '<b>' . $f . '</b> Successfully Deleted.'];
 			}
 		} elseif (isset($_POST["save"])) {
 			if (isset($this->config['Admin.editor'])) {
@@ -278,8 +280,9 @@ class Admin extends Plugins
 
 			$oldfile = 'content/' . $_POST['oldfilename'];
 			$file = 'content/' . $_POST['filename'];
+			$file = rtrim($file, '.md') . '.md';
+			$oldfile = rtrim($oldfile, '.md') . '.md';
 			$directory = substr($file, 0, strrpos( $file, '/'));
-			$file = str_replace('.md', '', $file) . '.md';
 			if (!is_dir($directory)) {
 				mkdir($directory, 0777, true);
 			}
@@ -306,6 +309,7 @@ class Admin extends Plugins
 			}
 		} elseif (isset($_POST["newfilename"])) {
 			$file = 'content/' . str_replace('.md', '', $_POST['newfilename']) . '.md';
+			$file = rtrim($file, '.md') . '.md';
 			if ($file !== 'content/.md') {
 				$content = $_POST['content'];
 				$directory = substr($file, 0, strrpos( $file, '/'));
@@ -336,15 +340,17 @@ class Admin extends Plugins
 
 		foreach ($filelist as &$value) {
 			$file = 'content/' . $value;
+			$file = rtrim($file, '.md') . '.md';
+			$edit = str_replace('.md', '', $value);
 			$page = str_replace('content/', '', str_replace('.md', '', str_replace('/index.md', '/', str_replace('content/index.md', '/', $file))));
 			$lastedit = date('d M y \- g:ia', filemtime($file));
 			$lasteditFormatted = $this->time_elapsed('@' . filemtime($file));
 			$link = str_replace('.md', '', str_replace('content/', '', $file));
-			$functions = '<a class="btn btn-default btn-xs" target="_blank" href="' . $this->homedir() . $link.'"><i class="fa fa-eye" aria-hidden="true"></i> View</a> '.'<a class="btn btn-default btn-xs" href="pages/edit/' . $value . '"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a> '.'<a class="btn btn-default btn-xs" style="cursor:pointer" onclick="Delete(' . '\'' . $value . '\'' . ')"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>'; //fix basepathing
+			$functions = '<a class="btn btn-default btn-xs" target="_blank" href="' . $this->homedir() . $link.'"><i class="fa fa-eye" aria-hidden="true"></i> View</a> '.'<a class="btn btn-default btn-xs" href="pages/edit/' . $edit . '"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a> '.'<a class="btn btn-default btn-xs" style="cursor:pointer" onclick="Delete(' . '\'' . $edit . '\'' . ')"><i class="fa fa-times" aria-hidden="true"></i> Delete</a>'; //fix basepathing
 			$yaml = new FrontMatter($file);
 
-			if ($yaml->keyExists('childpages')) {
-				$childpages = $yaml->fetch('childpages');
+			if ($yaml->keyExists('children')) {
+				$childpages = $yaml->fetch('children');
 				$childpages = explode(', ', $childpages);
 				if (!is_array($childpages)) {
 					$childpages = explode(' ', $childpages);
@@ -373,7 +379,7 @@ class Admin extends Plugins
 			} else {
 				$pagetitle = '';
 			}
-			$Page = array('page' => $page, 'state' => $state, 'state_style' => $state_style, 'path' => $value, 'lastedit' => $lastedit, 'lastedit_formatted' => $lasteditFormatted, 'fileedited' => filemtime($file), 'functions' => $functions, 'title' => $pagetitle, 'childpages' => $childpages);
+			$Page = array('page' => $page, 'state' => $state, 'state_style' => $state_style, 'path' => $value, 'lastedit' => $lastedit, 'lastedit_formatted' => $lasteditFormatted, 'fileedited' => filemtime($file), 'functions' => $functions, 'title' => $pagetitle, 'children' => $childpages);
 			array_push($pages, $Page);
 		}
 
@@ -410,7 +416,8 @@ class Admin extends Plugins
 			array_push($filenamearr, $filename);
 		}
 		$filename = implode('/', $filenamearr);
-		$file = 'content/' . $filename;
+		$file = 'content/' . $filename . '.md';
+		$file = rtrim($file, '.md') . '.md';
 		$link = str_replace('.md', '', str_replace('content/', '', $file));
 
 		$yaml = new FrontMatter($file);
@@ -511,6 +518,7 @@ class Admin extends Plugins
 			$file = 'themes/' . $this->config['theme'] . '/partials/' . $_POST['filename'];
 			$directory = substr($file, 0, strrpos( $file, '/'));
 			$file = str_replace('.html', '', $file) . '.html';
+			$file = rtrim($file, '.html') . '.html';
 			if (!is_dir($directory)) {
 				mkdir($directory, 0777, true);
 			}
@@ -536,8 +544,9 @@ class Admin extends Plugins
 		$partials = array();
 		foreach ($filelist as &$value) {
 			$Partial = array();
+			$f = rtrim($value, '.html');
 			$Partial['partial'] = str_replace('.html', '', str_replace('/index.html', '/', str_replace('_', '', $value)));
-			$Partial['functions'] = '<a href="partials/edit/'.urlencode($value).'">Edit</a> '.'<a href="partials/delete/'.urlencode($value).'">Delete</a>';
+			$Partial['functions'] = '<a href="partials/edit/'.$f.'">Edit</a> '.'<a href="partials/delete/'.$f.'">Delete</a>';
 			array_push($partials, $Partial);
 		}
 		return $this->render('partiallist', array('partials' => $partials));
@@ -547,6 +556,7 @@ class Admin extends Plugins
 	{
 		$filename = $this->url(3);
 		$file = 'themes/' . $this->config['theme'] . '/partials/' . $filename;
+		$file = rtrim($file, '.html') . '.html';
 		return $this->render('edit-partial', array('filename' => $filename, 'content' => file_get_contents($file)));
 	}
 
@@ -581,7 +591,7 @@ class Admin extends Plugins
 	}
 
 	// FUNCTIONS
-	
+
 	public function Notifications()
 	{
 		$notifications = array();
@@ -657,7 +667,7 @@ class Admin extends Plugins
 		$diff->w = floor($diff->d / 7);
 		$diff->d -= $diff->w * 7;
 
-		$string = array(
+		$string = [
 			'y' => 'year',
 			'm' => 'month',
 			'w' => 'week',
@@ -665,7 +675,8 @@ class Admin extends Plugins
 			'h' => 'hour',
 			'i' => 'minute',
 			's' => 'second',
-		);
+		];
+
 		foreach ($string as $k => &$v) {
 			if ($diff->$k) {
 				$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');

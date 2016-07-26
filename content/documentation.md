@@ -4,6 +4,7 @@ description: mdms documentation
 author: Harry Park
 date: 7 July, 3:01PM AESDT
 template: documentation
+content-rerender: false
 ---
 
 ## <span id="install">Install</span>
@@ -95,16 +96,18 @@ Converting from html over to a theme that can be used within mdms is actually re
 Useable 'tags' within themes can be added like so
 
 <pre style="white-space:pre-wrap;">
-&#123;&#123; url_depth &#125;&#125; Must be used when handling assets, not all url's have the same number of slashes.
-&#123;&#123; page &#125;&#125; the array with all page information enclosed.
-	&#123;&#123; page.title &#125;&#125;
-	&#123;&#123; page.description &#125;&#125;
-	&#123;&#123; page.author &#125;&#125;
-	&#123;&#123; page.content &#125;&#125; //'|raw' is extremely important, because the markdown is parsed to html, it musn't be autoescpaed.
-&#123;&#123; config &#125;&#125; encloses all data within the config array
-&#123;&#123; theme.dir &#125;&#125; required to send the location of the themes assets folder.
-&#123;&#123; base_url &#125;&#125; must be added for loading styling correctly, adds '../' for the amount of times a slash occurs in the url.
+{{ url_depth }} Must be used when handling assets, not all url's have the same number of slashes.
+{{ page }} the array with all page information enclosed.
+	{{ page.title }}
+	{{ page.description }}
+	{{ page.author }}
+	{{ page.content }} //'|raw' is extremely important, because the markdown is parsed to html, it musn't be autoescpaed.
+{{ config }} encloses all data within the config array
+{{ theme.dir }} required to send the location of the themes assets folder.
+{{ base_url }} must be added for loading styling correctly, adds '../' for the amount of times a slash occurs in the url.
 </pre>
+
+**Note:** you can disable the content rerendering function by adding ```content-rerender: false``` to the header of a .md file.
 
 The folder structure of a theme should look like so
 ```

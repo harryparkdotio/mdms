@@ -28,6 +28,21 @@ $config['enableByDefault'] = true; // true, specify which plugins to disable; fa
 $config['Admin.enabled'] = true;
 $config['Admin.editor'] = 'advanced'; // simple/advanced; default: advanced
 
+// SiteWide
+$config['SiteWide.enabled'] = true;
+$config['SiteWide.css'] = [
+	'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">',
+	'<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">',
+	'<!--[if lt IE 9]>' .
+		'<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>' .
+		'<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>' .
+	'<![endif]-->',
+];
+$config['SiteWide.js'] = [
+	'<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>',
+	'<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>',
+];
+
 // Blog
 $config['Blog.enabled'] = true;
 
@@ -78,9 +93,4 @@ Y	{{ page.author }}
 	{{ page.raw_content }}
 Y	{{ page.content|raw }}
 	{{ page.meta }}
-{{ prev_page }} // relative to current_page
-{{ current_page }}
-{{ next_page }} // relative to current_page
-{{ is_front_page }}
-
 */

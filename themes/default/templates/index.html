@@ -7,9 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="favicon.ico">
-		<!-- Bootstrap -->
-		{{ bootstrap_css }}
-		{{ fontAwesome }}
+
+		{{ SiteWide_css }}
+
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ urldepth }}{{ theme.dir }}main.css">
 
@@ -58,12 +58,15 @@
 					</div>
 				{% endfor %}
 			</div>
+
+		{{ paginate }}
+
 		{% endblock %}
 
 		{% include 'partials/_footer.html' %}
 
-		<!-- Bootstrap -->
-		{{ bootstrap_js }}
+		{{ SiteWide_js }}
+
 	</body>
 
 </html>

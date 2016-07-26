@@ -7,8 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 		<!-- Favicon -->
 		<link rel="shortcut icon" href="favicon.ico">
-		<!-- Bootstrap -->
-		<link rel="stylesheet" href="{{ urldepth }}{{ theme.dir }}bootstrap/css/bootstrap.min.css">
+
+		{{ SiteWide_css }}
+		
 		<!-- CSS -->
 		<link rel="stylesheet" href="{{ urldepth }}{{ theme.dir }}main.css">
 
@@ -51,8 +52,7 @@
 
 		{% include 'partials/_footer.html' %}
 
-		<!-- Bootstrap -->
-		<script src="{{ urldepth }}{{ theme.dir }}bootstrap/js/bootstrap.min.js"></script>
+		{{ SiteWide_js }}
 
 	</body>
 

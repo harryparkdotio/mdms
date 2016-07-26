@@ -25,7 +25,7 @@
 		<th>Path</th>
 		<th>State</th>
 		<th>Title</th>
-		<th>Child Pages</th>
+		<th>Children</th>
 		<th></th>
 		<th>Last Edited</th>
 		<th></th>
@@ -39,7 +39,7 @@
 				<td><span class="label label-{{ page.state_style }}">{{ page.state }}</span></td>
 				<td>{{ page.title }}</td>
 				<td>
-					{% for child in page.childpages %}
+					{% for child in page.children %}
 						{{ child }}
 					{% endfor %}
 				</td>
@@ -57,23 +57,23 @@
 </table>
 
 {% if pagination.total_pages > 1 %}
-		<nav>
-			<ul class="pagination">
-				{% if pagination.current_page > 1 %}
-					<li><a href="{{ base }}pages/{{ pagination.current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+	<nav>
+		<ul class="pagination">
+			{% if pagination.current_page > 1 %}
+				<li><a href="{{ base }}pages/{{ pagination.current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+			{% endif %}
+			{% for i in 1..pagination.total_pages %}
+				{% if i == pagination.current_page %}
+					<li class="active"><a href="#">{{ i }}</a></li>
+				{% else %}
+					<li><a href="{{ base }}pages/{{ i }}">{{ i }}</a></li>
 				{% endif %}
-				{% for i in 1..pagination.total_pages %}
-					{% if i == pagination.current_page %}
-						<li class="active"><a href="#">{{ i }}</a></li>
-					{% else %}
-						<li><a href="{{ base }}pages/{{ i }}">{{ i }}</a></li>
-					{% endif %}
-				{% endfor %}
-				{% if pagination.current_page < pagination.total_pages %}
-					<li><a href="{{ base }}pages/{{ pagination.current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-				{% endif %}
-			</ul>
-		</nav>
-	{% endif %}
+			{% endfor %}
+			{% if pagination.current_page < pagination.total_pages %}
+				<li><a href="{{ base }}pages/{{ pagination.current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+			{% endif %}
+		</ul>
+	</nav>
+{% endif %}
 
 {% endblock %}

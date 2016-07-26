@@ -5,37 +5,35 @@
  * @author Harry Park <harry@harrypark.io>
  * @link http://harrypark.io
  * @license http://opensource.org/licenses/MIT
- * @version 1.0
+ * @version 1.0.1
  * @package mdms - markdown management system
- *
  */
 
-// Because mdms doesn't use composer (so it works with shared hosting servers) we have to load packages manually.
 require_once('backend/parsedown.php');
 require_once('backend/frontmatter.php');
 require_once('backend/Twig/Autoloader.php');
 
-require_once('plugins/Plugins.php');
-
 class mdms
 {
-	// FUNCTIONS
+	// Loaded Packages
 	public $markdown;
 	public $yaml;
 
+	// Config + Plugins Storage
 	public $config;
 	public $plugins;
 
-	// PAGE
+	// Page Variables
 	public $page;
-	public $pageError = 0; // 0 = none, 1 = 404, 2 = plugin override.
+	public $pageError = 0; // 0 = none, 1 = 404, 2 = plugin override. Allows plugins to override the 404 page.
 	public $template;
 	public $values;
 	public $theme;
 	public $headers;
 	public $content;
+	public $rerend = true;
 
-	// URL
+	// URL + Page Variables
 	public $base;
 	public $urldepth;
 	public $url;
@@ -43,7 +41,7 @@ class mdms
 
 	public function __construct()
 	{
-		$this->debug(true);
+		$this->debug(true); // enable/disable debugging
 		$this->loadPlugins();
 		$this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
 		$this->loadConfig();
@@ -57,6 +55,33 @@ class mdms
 			ini_set('display_errors', 1);
 			ini_set('display_startup_errors', 1);
 			error_reporting(E_ALL);
+		}
+	}
+
+	protected function loadPlugins()
+	{
+		$this->plugins = array();
+		$pluginFiles = $this->getFiles('plugins/', '.php');
+		foreach ($pluginFiles as $pluginFile) {
+			require_once($pluginFile);
+			$className = preg_replace('/^[0-9]+-/', '', basename($pluginFile, '.php'));
+			if (class_exists($className)) {
+				$plugin = new $className($this);
+				$className = get_class($plugin);
+				$this->plugins[$className] = $plugin;
+			}
+		}
+	}
+
+	public function getPlugin($pluginName = null)
+	{
+		if ($pluginName != null) {
+			if (isset($this->plugins[$pluginName])) {
+				return $this->plugins[$pluginName];
+			}
+			throw new RuntimeException("Missing plugin '" . $pluginName . "'");
+		} else {
+			return $this->plugins;
 		}
 	}
 
@@ -92,13 +117,10 @@ class mdms
 		$fileExtensionLength = strlen($fileExtension);
 		if ($files !== false) {
 			foreach ($files as $file) {
-				// don't show hidden files/dirs starting with a '.' or '..'
-				// exclude files ending with a ~ or # (vim/nano backup or emacs backup)
 				if ((substr($file, 0, 1) === '.') || in_array(substr($file, -1), array('~', '#'))) {
 					continue;
 				}
 				if (is_dir($directory . '/' . $file)) {
-					// get files recursively --> for files within sub dirs
 					$result = array_merge($result, $this->getFiles($directory . '/' . $file, $fileExtension));
 				} elseif (empty($fileExtension) || (substr($file, -$fileExtensionLength) === $fileExtension)) {
 					$result[] = $directory . '/' . $file;
@@ -117,41 +139,10 @@ class mdms
 		return $empty && rmdir($path);
 	}
 
-	protected function loadPlugins()
-	{
-		$this->plugins = array();
-		$pluginFiles = $this->getFiles('plugins/', '.php');
-		foreach ($pluginFiles as $pluginFile) {
-			require_once($pluginFile);
-			$className = preg_replace('/^[0-9]+-/', '', basename($pluginFile, '.php'));
-			if (class_exists($className)) {
-				// class name and file name can differ regarding case sensitivity
-				$plugin = new $className($this);
-				$className = get_class($plugin);
-				$this->plugins[$className] = $plugin;
-			}
-		}
-	}
-
-	public function getPlugin($pluginName)
-	{
-		if (isset($this->plugins[$pluginName])) {
-			return $this->plugins[$pluginName];
-		}
-		throw new RuntimeException("Missing plugin '" . $pluginName . "'");
-	}
-
-	public function getPlugins()
-	{
-		return $this->plugins;
-	}
-
 	public function getPage()
 	{
 		$this->base = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
 		$this->url = str_replace($this->base, '', $_SERVER['REQUEST_URI']);
-
-		// adds the content folder prefix (content/), adds the markdown file extension (.md)
 		$this->RequestUrl = str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']);
 		$this->triggerEvent('onRequestUrl', array(&$this->RequestUrl));
 		$this->page = 'content/' . str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']) . '.md';
@@ -191,6 +182,7 @@ class mdms
 		if ($this->yaml->keyExists('status')) {
 			$state = $this->yaml->fetch('status');
 			if ($this->page !== 'content/404.md') {
+				$state = strtolower($state);
 				if ($state == 'archived' || $state == 'draft') {
 					$this->page = 'content/404.md';
 				}
@@ -234,9 +226,9 @@ class mdms
 
 	public function Children()
 	{
-		if ($this->yaml->keyExists('childpages')) {
-			unset($this->values['childpages']);
-			$children = $this->yaml->fetch('childpages');
+		if ($this->yaml->keyExists('children')) { // change to children
+			unset($this->values['children']);
+			$children = $this->yaml->fetch('children');
 			$children = explode(', ', $children);
 			if (!is_array($children)) {
 				$children = explode(' ', $children);
@@ -256,7 +248,7 @@ class mdms
 			$this->values['child'] = $child;
 		}
 		$this->theme();
-	} 
+	}
 
 	public function theme()
 	{
@@ -285,6 +277,11 @@ class mdms
 		} else {
 			$this->template = '/templates/index.html';
 		}
+
+		if ($this->yaml->keyExists('content-rerender')) {
+			$this->rerend = false;
+		}
+
 		$this->Render();
 	}
 
@@ -293,7 +290,6 @@ class mdms
 		if (!isset($this->config['timezone'])) {
 			$this->config['timezone'] = 'UTC';
 		}
-		
 		$values = $this->values;
 		$template = $this->template;
 		$templateDir = 'themes/' . $this->getConfig('theme');
@@ -303,7 +299,8 @@ class mdms
 		$twig = new Twig_Environment($loader, array('autoescape' => false, 'cache' => false, 'debug' => false));
 		$twig->getExtension('core')->setTimezone($this->getConfig('timezone'));
 		$twig_env = new Twig_Environment(new Twig_Loader_String);
-		if (isset($values['page']['content'])) {
+		
+		if (isset($values['page']['content']) && $this->rerend === true) {
 			$twig_env = new Twig_Environment(new Twig_Loader_String);
 			$values['page']['content'] = $twig_env->render($values['page']['content'], $values);
 		}
@@ -313,9 +310,7 @@ class mdms
 				$values['child'][$key]['content'] = $twig_env->render($values['child'][$key]['content'], $values);
 			}
 		}
-		$output = $twig->render($template, $values);
-		echo $output;
-		return $output;
+		echo $twig->render($template, $values);
 	}
 
 	public function triggerEvent($eventName, array $params = array())
