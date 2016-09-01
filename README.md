@@ -48,4 +48,4 @@ Then browse to admin/config/db.php, and edit the file to your specific settings
 
 That should be about it; There may be some errors, create an issue if you come across one.
 
-#### (Explanatory Documentation)[http://harrypark.io/mdms/documentation]
+(Explanatory Documentation)[http://harrypark.io/mdms/documentation]
