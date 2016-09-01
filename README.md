@@ -28,9 +28,9 @@ mdms allows child pages; pages which can be *included* in another file. *Hint: t
 mdms is fairly easy to install. Just drag and drop and its deployed!
 
 ## No admin panel
-If you don't want the awesome admin panel designed specifically for mdms, just delete the admin folder*.
+If you don't want the awesome admin panel designed specifically for mdms, just delete the admin folder in the plugins folder.
 
-Note: this installation type is still mostly untested, for this reason, you might want to have a look through the code before you attempt to deploy this installation type.
+Note: this installation type is somewhat tested, for this reason, you might want to have a look through the code before you attempt to deploy this installation.
 
 ## Admin Panel
 login to the admin panel with:
@@ -48,14 +48,4 @@ Then browse to admin/config/db.php, and edit the file to your specific settings
 
 That should be about it; There may be some errors, create an issue if you come across one.
 
-<hr>
-### Help Needed!
-Do you want to help make mdms something truly spectactular?
-Feel free to fork this repo, and let me know of any changes/additions you think are better than the currently used implementation.
-
-#### What you can help with:
-- Documentation
-- General cleanup + Optimization
-- Making awesome themes!
-- Making awesome plugins!
-- Installation (instructions + drag/drop install)
+#### (Explanatory Documentation)[http://harrypark.io/mdms/documentation]
