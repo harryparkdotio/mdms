@@ -4,28 +4,7 @@
 
 <div class="container">
 
-	<form class="form" name="settings" action="index.php" method="post">
-		<div class="form-group">
-			<select class="form-control" name="editor">
-				<option value="advanced">Advanced Editor</option>
-				<option value="simple">Simple Editor</option>
-			</select>
-			<label>Editor Type</label>
-		</div>
-
-		<div class="form-group">
-			<select class="form-control" name="theme">
-				{% for theme in themes %}
-					<option value="{{ theme }}">{{ theme }}</option>
-				{% endfor %}
-			</select>
-			<label>Theme</label>
-		</div>
-
-		<div class="input-group">
-			<input type="submit" class="form-control btn btn-primary" name="submit" value="Save">
-		</div>
-	</form>
+	<h1>Settings</h1>
 
 </div>
 

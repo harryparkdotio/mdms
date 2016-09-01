@@ -5,7 +5,7 @@
  * @author Harry Park <harry@harrypark.io>
  * @link http://harrypark.io
  * @license http://opensource.org/licenses/MIT
- * @version 1.0.1
+ * @version 1.0.2
  * @package mdms - markdown management system
  */
 
@@ -31,7 +31,6 @@ class mdms
 	public $theme;
 	public $headers;
 	public $content;
-	public $rerend = true;
 
 	// URL + Page Variables
 	public $base;
@@ -41,10 +40,14 @@ class mdms
 
 	public function __construct()
 	{
-		$this->debug(true); // enable/disable debugging
 		$this->loadPlugins();
 		$this->triggerEvent('onPluginsLoaded', array(&$this->plugins));
 		$this->loadConfig();
+		if ($this->getConfig('debug') == true) {
+			$this->debug(true);
+		} else {
+			$this->debug(false);
+		}
 		$this->triggerEvent('onConfigLoaded', array(&$this->config));
 		$this->getPage();
 	}
@@ -142,7 +145,7 @@ class mdms
 	public function getPage()
 	{
 		$this->base = str_replace('index.php', '', $_SERVER['SCRIPT_NAME']);
-		$this->url = str_replace($this->base, '', $_SERVER['REQUEST_URI']);
+		$this->url = ltrim($_SERVER['REQUEST_URI'], '/');
 		$this->RequestUrl = str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']);
 		$this->triggerEvent('onRequestUrl', array(&$this->RequestUrl));
 		$this->page = 'content/' . str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']) . '.md';
@@ -197,7 +200,6 @@ class mdms
 		$this->values = array(
 			'config' => $this->getConfig(),
 			'urldepth' => $this->urldepth,
-			'base_url' => $this->getConfig('base_url'),
 			'base' => $this->base,
 			'year' => date("Y"),
 			'pagelinks' => $this->getConfig('nav'),
@@ -229,10 +231,7 @@ class mdms
 		if ($this->yaml->keyExists('children')) { // change to children
 			unset($this->values['children']);
 			$children = $this->yaml->fetch('children');
-			$children = explode(', ', $children);
-			if (!is_array($children)) {
-				$children = explode(' ', $children);
-			}
+			$children = explode(' ', $children);
 			$child = array();
 			$count = 0;
 			foreach ($children as &$value) {
@@ -278,10 +277,6 @@ class mdms
 			$this->template = '/templates/index.html';
 		}
 
-		if ($this->yaml->keyExists('content-rerender')) {
-			$this->rerend = false;
-		}
-
 		$this->Render();
 	}
 
@@ -299,10 +294,19 @@ class mdms
 		$twig = new Twig_Environment($loader, array('autoescape' => false, 'cache' => false, 'debug' => false));
 		$twig->getExtension('core')->setTimezone($this->getConfig('timezone'));
 		$twig_env = new Twig_Environment(new Twig_Loader_String);
-		
-		if (isset($values['page']['content']) && $this->rerend === true) {
+
+		if (isset($values['page']['content']) && $this->yaml->keyExists('content-rerender') == false) {
 			$twig_env = new Twig_Environment(new Twig_Loader_String);
-			$values['page']['content'] = $twig_env->render($values['page']['content'], $values);
+			if (isset($values['child'])) {
+				foreach ($values['child'] as $key => $val) {
+					foreach ($values['child'][$key] as $keyy => $vall) {
+						$values['child'][$key][$keyy] = $twig_env->render($values['child'][$key][$keyy], $values);
+					}
+				}
+			}
+			foreach ($values['page'] as $key => $val) {
+				$values['page'][$key] = $twig_env->render($values['page'][$key], $values);
+			}
 		}
 		if (isset($values['child'])) {
 			$twig_env = new Twig_Environment(new Twig_Loader_String);

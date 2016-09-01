@@ -4,51 +4,47 @@
 
 {% block content %}
 
+<script type="text/javascript">
+	function Delete() {
+		document.body.innerHTML += '<form id="delete" action="../" method="post"><input type="hidden" name="delpage" value="{{ filename }}"></form>';
+		document.getElementById("delete").submit();
+	}
+</script>
+
 <div class="container">
 	<form action="{{ urldepth }}admin/pages" method="post" name="save">
 		<div class="form-group">
-			<div class="input-group">
-				<span class="input-group-addon">content/</span>
-				<input value="{{ filename }}" type="text" class="form-control" name="filename" autocomplete="off">
-				<span class="input-group-addon"><a target="_blank" href="/cms/flatfile/{{ link }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a></span>
+			<div class="row">
+				<div class="col-md-9">
+					<div class="input-group">
+						<span class="input-group-addon">content/</span>
+						<input value="{{ filename }}" type="text" class="form-control" name="filename" autocomplete="off">
+						<span class="input-group-addon"><a target="_blank" href="{{ base }}{{ link }}"><i class="fa fa-eye" aria-hidden="true"></i> View</a></span>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<input type="submit" class="btn btn-success" role="button" name="save" value="save">
+						<span style="padding-left: 5px;"></span>
+						<input type="submit" class="btn btn-primary" role="button" name="cancel" value="cancel">
+						<span style="padding-left: 5px;"></span>
+						<input type="button" class="btn btn-danger" onclick="Delete()" value="delete">
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="form-group header-editor">
 			<label for="header">Header (YAML):</label>
-			<textarea name="header" class="form-control" rows="5" id="header" autocomplete="off">{{ header }}</textarea>
+			<textarea name="header" class="form-control" rows="5" id="header" autocomplete="off" style="font-family: monospace;">{{ header }}</textarea>
 		</div>
 		<div class="form-group content-editor">
 			<label for="content">Content (Markdown):</label>
-			<textarea name="content" class="form-control" rows="20" id="content" autocomplete="off">{{ content }}</textarea>
+			<textarea name="content" class="form-control" rows="20" id="content" autocomplete="off" style="font-family: monospace;">{{ content }}</textarea>
 		</div>
 		<div class="input-group">
 			<input value="{{ filename }}" type="hidden" name="oldfilename">
 		</div>
-
-		<div class="input-group">
-			<input type="submit" class="btn btn-primary" role="button" name="save" value="save">
-		</div>
 	</form>
 </div>
 
-{% endblock %}
-
-{% block scripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="{{ urldepth }}plugins/Admin/assets/bootstrap/js/bootstrap.js"></script>
-<script src="{{ urldepth }}plugins/Admin/assets/codemirror/lib/codemirror.js"></script>
-<script src="{{ urldepth }}plugins/Admin/assets/codemirror/mode/yaml/yaml.js"></script>
-<script src="{{ urldepth }}plugins/Admin/assets/codemirror/mode/markdown/markdown.js"></script>
-<script>
-	CodeMirror.fromTextArea($('#header')[0], {
-		mode: 'yaml',
-		theme: 'neat',
-		lineWrapping: true
-	});
-	CodeMirror.fromTextArea($('#content')[0], {
-		mode: 'markdown',
-		theme: 'neat',
-		lineWrapping: true
-	});
-</script>
 {% endblock %}

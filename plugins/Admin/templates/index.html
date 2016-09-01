@@ -5,16 +5,27 @@
 		<title>{% block title %}MDMS{% endblock %}</title>
 
 		{{ SiteWide_css }}
-		<link rel="stylesheet" href="{{ urldepth }}plugins/Admin/assets/codemirror/lib/codemirror.css">
-		<link rel="stylesheet" href="{{ urldepth }}plugins/Admin/assets/codemirror/theme/neat.css">
-		{% block styles %}{% endblock %}
+		{% block styles %}
+			<link rel="stylesheet" type="text/css" href="{{ urldepth }}plugins/Admin/assets/admin.css">
+			<style type="text/css">
+				.navbar {
+	background-color: #fff;
+	border-color: #ddd;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.navbar a { color: #333; }
+.nav > li.active > a {
+	background-color: #eee;
+	color: #23527c;
+}
+
+.navbar-brand { font-weight: bold; }
+			</style>
+		{% endblock %}
 	</head>
 
 	<body>
-
-		<style type="text/css">
-			h1{font-size:34px;line-height:34px;margin:0 0 .5em}.navbar{background-color:#fff;border-color:#ddd;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05)}.navbar a{color:#333}.nav>li.active>a{background-color:#eee;color:#23527c}.navbar-brand{font-weight:700}.content-editor .CodeMirror,.header-editor .CodeMirror{padding:10px;border:1px solid #ccc;border-radius:4px}.header-editor .CodeMirror{height:100px}.content-editor .CodeMirror{height:500px}.content-editor .md-editor>textarea{background-color:#fff;padding:12px}.content-editor .md-editor>.md-preview{padding:12px}
-		</style>
 
 		{% include '_nav.html' %}
 

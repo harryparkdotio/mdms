@@ -94,6 +94,8 @@ class Admin extends Plugins
 		if ($_SESSION['logged_in'] === true) {
 			if ($url[1] == '') {
 				return 'Home';
+			} elseif ($url[1] == 'assets') {
+				return 'assets';
 			} elseif ($url[1] == 'logout') {
 				return 'logout';
 			} elseif ($url[1] == 'pages') {
@@ -386,10 +388,10 @@ class Admin extends Plugins
 		$this->sortCustom($pages, 'page', 'asc');
 
 		$offset = 0;
-		if ($this->url(1) == null) {
+		if ($this->url(2) == null) {
 			$page = 1;
 		} else {
-			$page = $this->url(1);
+			$page = $this->url(2);
 		}
 		if ($page > 1) {
 			$offset = $page - 1;
@@ -463,6 +465,25 @@ class Admin extends Plugins
 	public function newPage()
 	{
 		return $this->render('newpage', array('mdtemplate' => file_get_contents('plugins/Admin/resources/mdtemplate.md')));
+	}
+
+	public function assets()
+	{
+		$assets = $this->listDirectory('assets/');
+		$return = array();
+		foreach ($assets as $key => $val) {
+			$asset = array();
+			$file = 'assets/'.$val;
+			$pathinfo = pathinfo($file);
+			$asset['name'] = $pathinfo['filename'].'.'.$pathinfo['extension'];
+			$asset['dir'] = $pathinfo['dirname'];
+			$asset['ext'] = $pathinfo['extension'];
+			$asset['type'] = mime_content_type($file);
+			$asset['size'] = $this->human_filesize(filesize($file)) . 'B';
+			$asset['date'] = $this->time_elapsed('@' . filemtime($file));
+			array_push($return, $asset);
+		}
+		return $this->render('assets', array('assets' => $return));
 	}
 
 	public function Users()
@@ -668,13 +689,7 @@ class Admin extends Plugins
 		$diff->d -= $diff->w * 7;
 
 		$string = [
-			'y' => 'year',
-			'm' => 'month',
-			'w' => 'week',
-			'd' => 'day',
-			'h' => 'hour',
-			'i' => 'minute',
-			's' => 'second',
+			'y' => 'year', 'm' => 'month', 'w' => 'week', 'd' => 'day', 'h' => 'hour', 'i' => 'minute', 's' => 'second',
 		];
 
 		foreach ($string as $k => &$v) {
@@ -687,6 +702,12 @@ class Admin extends Plugins
 
 		if (!$full) $string = array_slice($string, 0, 1);
 		return $string ? implode(', ', $string) . ' ago' : 'just now';
+	}
+
+	public function human_filesize($bytes, $decimals = 2) {
+		$sz = 'BKMGTP';
+		$factor = floor((strlen($bytes) - 1) / 3);
+		return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
 	}
 
 	public function post($val)

@@ -1,14 +1,10 @@
 <?php
 
-// PLUGINS TO ADD
-// image gallery
-// image loader
-// navigation
-// admin panel
-
 class Plugins
 {
 	public $config;
+
+	public $dependants = array();
 
 	public function handleEvent($eventName, array $params)
 	{

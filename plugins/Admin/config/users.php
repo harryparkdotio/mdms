@@ -1,5 +1,8 @@
 <?php
 
+// DEFAULT
+// username: username, password: password
+
 return [
-	'username' => ['id' => 0, 'password' => '$2y$10$X9yZCJ0086yf07QMSXWFB.tPmoF8KCZl.M9hmByjuJerYi1AqxC0O', 'access_level' => 10],
+	'username' => ['id' => 2, 'password' => '$2y$10$4y97gDSGq8.4kIAS7P3oC.gZr1LOXXs8gMUnvmFQSqqHXwAUQvsPe', 'access_level' => 10],
 ];

@@ -24,17 +24,3 @@
 </div>
 
 {% endblock %}
-
-{% block scripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="{{ urldepth }}assets/bootstrap/js/bootstrap.js"></script>
-<script src="{{ urldepth }}assets/codemirror/lib/codemirror.js"></script>
-<script src="{{ urldepth }}assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script>
-	CodeMirror.fromTextArea($('#content')[0], {
-		mode: 'htmlmixed',
-		theme: 'neat',
-		lineWrapping: true
-	});
-</script>
-{% endblock %}

@@ -7,17 +7,18 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/mdms/admin">mdms</a>
+			<a class="navbar-brand" href="{{ base }}admin">mdms</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				{% if user.loggedin %}
-					<li><a href="/mdms/admin">Home</a></li>
-					<li><a href="/mdms/admin/pages">Pages</a></li>
+					<li><a href="{{ base }}admin">Home</a></li>
+					<li><a href="{{ base }}admin/pages">Pages</a></li>
+					<li><a href="{{ base }}admin/assets">Assets</a></li>
 					{% if user.admin %}
-						<li><a href="/mdms/admin/partials">Partials</a></li>
-						<li><a href="/mdms/admin/users">Users</a></li>
-						<li><a href="/mdms/admin/settings">Settings</a></li>
+						<li><a href="{{ base }}admin/partials">Partials</a></li>
+						<li><a href="{{ base }}admin/users">Users</a></li>
+						<li><a href="{{ base }}admin/settings">Settings</a></li>
 					{% endif %}
 				{% endif %}
 			</ul>
@@ -26,9 +27,9 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> <b>{{ user.username }}</b> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="/mdms/admin/user/profile">Profile</a></li>
+							<li><a href="{{ base }}admin/user/profile">Profile</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="/mdms/admin/logout">Logout</a></li>
+							<li><a href="{{ base }}admin/logout">Logout</a></li>
 						</ul>
 					</li>
 				{% endif %}

@@ -60,17 +60,17 @@
 	<nav>
 		<ul class="pagination">
 			{% if pagination.current_page > 1 %}
-				<li><a href="{{ base }}pages/{{ pagination.current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+				<li><a href="{{ base }}admin/pages/{{ pagination.current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 			{% endif %}
 			{% for i in 1..pagination.total_pages %}
 				{% if i == pagination.current_page %}
 					<li class="active"><a href="#">{{ i }}</a></li>
 				{% else %}
-					<li><a href="{{ base }}pages/{{ i }}">{{ i }}</a></li>
+					<li><a href="{{ base }}admin/pages/{{ i }}">{{ i }}</a></li>
 				{% endif %}
 			{% endfor %}
 			{% if pagination.current_page < pagination.total_pages %}
-				<li><a href="{{ base }}pages/{{ pagination.current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+				<li><a href="{{ base }}admin/pages/{{ pagination.current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 			{% endif %}
 		</ul>
 	</nav>
