@@ -1,0 +1,120 @@
+[04-Aug-2016 20:37:52 America/New_York] PHP Fatal error:  Call to undefined function Zip() in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 657
+[04-Aug-2016 20:38:10 America/New_York] PHP Fatal error:  Call to undefined method Admin::Zip() in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 657
+[04-Aug-2016 20:51:47 America/New_York] PHP Warning:  file_get_contents(content/compass/css3.md): failed to open stream: No such file or directory in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 441
+[04-Aug-2016 20:51:47 America/New_York] PHP Notice:  Undefined offset: 1 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 443
+[04-Aug-2016 20:51:47 America/New_York] PHP Notice:  Undefined offset: 2 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 445
+[04-Aug-2016 20:51:47 America/New_York] PHP Warning:  file_get_contents(content/compass/css3.md): failed to open stream: No such file or directory in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 441
+[04-Aug-2016 20:51:47 America/New_York] PHP Notice:  Undefined offset: 1 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 443
+[04-Aug-2016 20:51:47 America/New_York] PHP Notice:  Undefined offset: 2 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 445
+[04-Aug-2016 20:52:08 America/New_York] PHP Warning:  file_get_contents(content/compass/css3.md): failed to open stream: No such file or directory in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 441
+[04-Aug-2016 20:52:08 America/New_York] PHP Notice:  Undefined offset: 1 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 443
+[04-Aug-2016 20:52:08 America/New_York] PHP Notice:  Undefined offset: 2 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 445
+[04-Aug-2016 20:52:08 America/New_York] PHP Warning:  file_get_contents(content/compass/css3.md): failed to open stream: No such file or directory in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 441
+[04-Aug-2016 20:52:08 America/New_York] PHP Notice:  Undefined offset: 1 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 443
+[04-Aug-2016 20:52:08 America/New_York] PHP Notice:  Undefined offset: 2 in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 445
+[04-Aug-2016 21:04:15 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[04-Aug-2016 21:04:15 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[04-Aug-2016 21:27:05 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[04-Aug-2016 21:27:05 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[05-Aug-2016 08:30:43 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[05-Aug-2016 08:30:43 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[05-Aug-2016 18:45:20 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[05-Aug-2016 18:45:20 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[05-Aug-2016 18:45:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[05-Aug-2016 18:45:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[05-Aug-2016 23:01:22 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[05-Aug-2016 23:01:22 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[08-Aug-2016 00:16:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[08-Aug-2016 00:16:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[08-Aug-2016 17:17:17 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[08-Aug-2016 17:17:17 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[08-Aug-2016 18:39:13 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[08-Aug-2016 18:39:13 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[08-Aug-2016 18:39:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[08-Aug-2016 18:39:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[09-Aug-2016 21:34:43 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[09-Aug-2016 21:34:43 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[12-Aug-2016 06:40:54 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[12-Aug-2016 06:40:54 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[12-Aug-2016 18:52:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[12-Aug-2016 18:52:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[12-Aug-2016 18:52:28 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[12-Aug-2016 18:52:28 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[16-Aug-2016 13:49:24 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[16-Aug-2016 13:49:24 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[16-Aug-2016 20:05:54 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[16-Aug-2016 20:05:54 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[17-Aug-2016 19:21:14 America/New_York] PHP Fatal error:  Access level to AdminConfig::$config must be public (as in class Plugins) in /home/pipskweak/public_html/mdms/plugins/AdminConfig/AdminConfig.php on line 50
+[17-Aug-2016 19:21:15 America/New_York] PHP Fatal error:  Access level to AdminConfig::$config must be public (as in class Plugins) in /home/pipskweak/public_html/mdms/plugins/AdminConfig/AdminConfig.php on line 50
+[17-Aug-2016 19:21:16 America/New_York] PHP Fatal error:  Access level to AdminConfig::$config must be public (as in class Plugins) in /home/pipskweak/public_html/mdms/plugins/AdminConfig/AdminConfig.php on line 0
+[17-Aug-2016 19:21:17 America/New_York] PHP Fatal error:  Access level to AdminConfig::$config must be public (as in class Plugins) in /home/pipskweak/public_html/mdms/plugins/AdminConfig/AdminConfig.php on line 0
+[17-Aug-2016 19:23:32 America/New_York] PHP Parse error:  syntax error, unexpected end of file in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 363
+[17-Aug-2016 19:23:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:23:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:23:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:23:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:23:33 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:27:02 America/New_York] PHP Parse error:  syntax error, unexpected end of file in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 144
+[17-Aug-2016 19:27:03 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:03 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:03 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:03 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:03 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:45 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:45 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:45 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:45 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:27:45 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 39
+[17-Aug-2016 19:28:11 America/New_York] PHP Parse error:  syntax error, unexpected end of file, expecting variable (T_VARIABLE) or '$' in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 363
+[17-Aug-2016 19:28:12 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:12 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:12 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:12 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:12 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:56 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:56 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:56 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:56 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:28:56 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:19 America/New_York] PHP Parse error:  syntax error, unexpected end of file in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 691
+[17-Aug-2016 19:29:19 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:19 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:19 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:19 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:19 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:29:26 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 40
+[17-Aug-2016 19:33:43 America/New_York] PHP Parse error:  syntax error, unexpected end of file, expecting ']' in /home/pipskweak/public_html/mdms/plugins/Admin/Admin.php on line 692
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Undefined variable: Data in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:07 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Undefined variable: Data in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:36:08 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/mdms.php on line 104
+[17-Aug-2016 19:38:17 America/New_York] PHP Notice:  Undefined variable: Data in /home/pipskweak/public_html/mdms/mdms.php on line 111
+[17-Aug-2016 19:40:16 America/New_York] PHP Notice:  Undefined variable: Data in /home/pipskweak/public_html/mdms/mdms.php on line 112
+[17-Aug-2016 19:42:05 America/New_York] PHP Notice:  Undefined variable: Data in /home/pipskweak/public_html/mdms/mdms.php on line 112
+[18-Aug-2016 22:42:10 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[18-Aug-2016 22:42:10 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[18-Aug-2016 22:42:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[18-Aug-2016 22:42:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[22-Aug-2016 21:07:01 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[22-Aug-2016 21:07:01 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[22-Aug-2016 23:12:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[22-Aug-2016 23:12:21 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212
+[25-Aug-2016 23:31:42 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 192
+[25-Aug-2016 23:31:42 America/New_York] PHP Notice:  Array to string conversion in /home/pipskweak/public_html/mdms/backend/Twig/Environment.php(314) : eval()'d code on line 212

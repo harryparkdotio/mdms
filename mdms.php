@@ -150,6 +150,7 @@ class mdms
 		$this->triggerEvent('onRequestUrl', array(&$this->RequestUrl));
 		$this->page = 'content/' . str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']) . '.md';
 		$this->urldepth = str_repeat('../', substr_count(str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']), '/'));
+		echo $this->RequestUrl;
 		$this->pageExists();
 	}
 
@@ -295,7 +296,7 @@ class mdms
 		$twig->getExtension('core')->setTimezone($this->getConfig('timezone'));
 		$twig_env = new Twig_Environment(new Twig_Loader_String);
 
-		if (isset($values['page']['content']) && $this->yaml->keyExists('content-rerender') == false) {
+		if (isset($values['page']['content'])) {
 			$twig_env = new Twig_Environment(new Twig_Loader_String);
 			if (isset($values['child'])) {
 				foreach ($values['child'] as $key => $val) {

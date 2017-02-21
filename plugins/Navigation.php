@@ -20,7 +20,7 @@ class Navigation extends Plugins
 	protected $navbar_type;
 	protected $links;
 	protected $style;
-	protected $base;
+	protected $base_url;
 
 	public function onConfigLoaded(&$config) {
 		if (isset($config['navbar'])) {
@@ -35,19 +35,19 @@ class Navigation extends Plugins
 			$navbar_type = 'default';
 		}
 
-		if (isset($config['base'])) {
-			$this->base = $config['base'];
+		if (isset($config['base_url'])) {
+			$this->base_url = $config['base_url'] . '/';
 		}
 
 		if ($this->navbar_brand !== null) {
 			foreach ($this->navbar_brand as $key => $value) {
-				$this->navbar_brand = '<a class="navbar-brand" href="/' . $this->base . '/' . $value . '">' . $key . '</a>';
+				$this->navbar_brand = '<a class="navbar-brand" href="/' . $this->base_url . $value . '">' . $key . '</a>';
 			}
 		} else {
 			$this->navbar_brand = '';
 		}
 		foreach ($this->navbar as $key => $value) {
-			$this->links .= '<li><a href="/' . $this->base . '/' . $value . '">' . $key . '</a></li>';
+			$this->links .= '<li><a href="/' . $this->base_url . $value . '">' . $key . '</a></li>';
 		}
 
 		switch ($navbar_type) {

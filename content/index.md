@@ -20,5 +20,3 @@ mdms is free and **open source**!
 [Github](https://github.com/harryparkdotio/mdms)
 
 hey
-
-yolo

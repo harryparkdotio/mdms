@@ -1,0 +1,17 @@
+debug: 1
+site_title: mdms
+base_url: mdms
+meta: , 
+theme: default
+enableByDefault: 1
+Admin.enabled: 1
+Admin.editor: advanced
+SiteWide.enabled: 1
+SiteWide.css: <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->, 
+SiteWide.js: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>, 
+Blog.enabled: 1
+google_tracking_id: UA-77005711-1
+navbar: customisation/plugins, 
+navbar_type: static
+navbar_brand: , 
+timezone: AEST
