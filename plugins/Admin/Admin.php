@@ -411,13 +411,9 @@ class Admin extends Plugins
 
 	public function editPage()
 	{
-		$slashes = substr_count(str_replace(str_replace('index.php', '', $_SERVER['SCRIPT_NAME']), '', $_SERVER['REQUEST_URI']), '/');
-		$filenamearr = array();
-		foreach (range(3, $slashes) as $depth) {
-			$filename = $this->url($depth);
-			array_push($filenamearr, $filename);
-		}
-		$filename = implode('/', $filenamearr);
+		$filename = explode('/', $_SERVER['REQUEST_URI']);
+		$filename = array_slice($filename, 4);
+		$filename = implode('/', $filename);
 		$file = 'content/' . $filename . '.md';
 		$file = rtrim($file, '.md') . '.md';
 		$link = str_replace('.md', '', str_replace('content/', '', $file));
